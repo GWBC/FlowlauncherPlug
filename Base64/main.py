@@ -1,29 +1,35 @@
 # -*- coding: utf-8 -*-
 
-import sys, os
+import sys
 import base64
 import tkinter as tk
 
 from tkinter import filedialog
+from pathlib import Path
 
-parent_folder_path = os.path.abspath(os.path.dirname(__file__))
-sys.path.append(parent_folder_path)
-sys.path.append(os.path.join(parent_folder_path, "lib"))
-sys.path.append(os.path.join(parent_folder_path, "plugin"))
+curPath = Path(__file__).parent
+parentPath = curPath.parent
+commPath = parentPath.joinpath("Asset")
+
+sys.path.append(str(parentPath))
+sys.path.append(str(commPath))
+sys.path.append(str(commPath.joinpath("lib")))
+sys.path.append(str(commPath.joinpath("plugin")))
 
 import pyperclip
 from flowlauncher import FlowLauncher
 
-from comm import fileHeader, makeRPC
+from Comm.util import Util
 
 
 class Base64(FlowLauncher):
     def __init__(self):
+        self.util = Util("Base64.png")
         self.err = [
-            makeRPC("en:编码字符串"),
-            makeRPC("de:解码字符串"),
-            makeRPC("ef:编码文件"),
-            makeRPC("df:解码文件"),
+            self.util.makeRPC("en:编码字符串"),
+            self.util.makeRPC("de:解码字符串"),
+            self.util.makeRPC("ef:编码文件"),
+            self.util.makeRPC("df:解码文件"),
         ]
         super().__init__()
 
@@ -36,7 +42,7 @@ class Base64(FlowLauncher):
         if s[0] == "en":
             base64_encode = base64.b64encode(s[1].encode("utf8")).decode("utf8")
             return [
-                makeRPC(
+                self.util.makeRPC(
                     "{}{}".format("编码:", base64_encode),
                     method="copy2clipboard",
                     args=[base64_encode],
@@ -46,7 +52,7 @@ class Base64(FlowLauncher):
         if s[0] == "de":
             base64_decode = base64.b64decode(s[1]).decode("utf8")
             return [
-                makeRPC(
+                self.util.makeRPC(
                     "{}{}".format("解码:", base64_decode),
                     method="copy2clipboard",
                     args=[base64_decode],
@@ -79,7 +85,7 @@ class Base64(FlowLauncher):
             if data == None or len(save_path) == 0:
                 return
             with open(save_path, "wb") as f:
-                f.write(fileHeader(file_path).encode("utf8"))
+                f.write(self.util.fileHeader(file_path).encode("utf8"))
                 f.write(data)
 
             return []

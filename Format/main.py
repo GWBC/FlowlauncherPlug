@@ -1,24 +1,30 @@
 # -*- coding: utf-8 -*-
 
-import sys, os, json
+import sys, json
+from pathlib import Path
 import urllib.parse
 
-parent_folder_path = os.path.abspath(os.path.dirname(__file__))
-sys.path.append(parent_folder_path)
-sys.path.append(os.path.join(parent_folder_path, "lib"))
-sys.path.append(os.path.join(parent_folder_path, "plugin"))
+curPath = Path(__file__).parent
+parentPath = curPath.parent
+commPath = parentPath.joinpath("Asset")
+
+sys.path.append(str(parentPath))
+sys.path.append(str(commPath))
+sys.path.append(str(commPath.joinpath("lib")))
+sys.path.append(str(commPath.joinpath("plugin")))
 
 import pyperclip
 from flowlauncher import FlowLauncher
 
-from comm import makeRPC
+from Comm.util import Util
 
 
 class DataFormat(FlowLauncher):
     def __init__(self):
+        self.util = Util("DataFormat.png")
         self.err = [
-            makeRPC("url:格式化URL"),
-            makeRPC("json:格式化JSON"),
+            self.util.makeRPC("url:格式化URL"),
+            self.util.makeRPC("json:格式化JSON"),
         ]
         super().__init__()
 
@@ -33,9 +39,9 @@ class DataFormat(FlowLauncher):
                 data = json.loads(ss[1])
                 fmtData = json.dumps(data, indent=4)
                 self.copy2clipboard(fmtData)
-                return [makeRPC(fmtData)]
+                return [self.util.makeRPC(fmtData)]
             except Exception as e:
-                return [makeRPC("美化失败：{}".format(str(e)))]
+                return [self.util.makeRPC("美化失败：{}".format(str(e)))]
         if ss[0] == "url":
             try:
                 fmtUrl = urllib.parse.unquote(ss[1])
@@ -51,11 +57,11 @@ class DataFormat(FlowLauncher):
                 )
 
                 return [
-                    makeRPC(fmtUrl, method="copy2clipboard", args=[fmtUrl]),
-                    makeRPC(result, method="copy2clipboard", args=[result]),
+                    self.util.makeRPC(fmtUrl, method="copy2clipboard", args=[fmtUrl]),
+                    self.util.makeRPC(result, method="copy2clipboard", args=[result]),
                 ]
             except Exception as e:
-                return [makeRPC("美化失败：{}".format(str(e)))]
+                return [self.util.makeRPC("美化失败：{}".format(str(e)))]
         return []
 
     def context_menu(self, data):

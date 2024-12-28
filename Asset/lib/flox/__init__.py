@@ -15,88 +15,102 @@ from tempfile import gettempdir
 
 from .launcher import Launcher
 from .browser import Browser
+from .settings import Settings
 
 PLUGIN_MANIFEST = 'plugin.json'
+FLOW_LAUNCHER_DIR_NAME = "FlowLauncher"
+SCOOP_FLOW_LAUNCHER_DIR_NAME = "flow-launcher"
+WOX_DIR_NAME = "Wox"
 FLOW_API = 'Flow.Launcher'
 WOX_API = 'Wox'
-LOCALAPPDATA = os.getenv('LOCALAPPDATA')
+APP_DIR = None
+USER_DIR = None
+LOCALAPPDATA = Path(os.getenv('LOCALAPPDATA'))
+APPDATA = Path(os.getenv('APPDATA'))
 FILE_PATH = os.path.dirname(os.path.abspath(__file__))
-CWD = os.getcwd()
-APP_DIR = ""
+CURRENT_WORKING_DIR = Path().cwd()
+LAUNCHER_NOT_FOUND_MSG = f"Unable to locate Launcher directory\nCurrent working directory: {CURRENT_WORKING_DIR}"
 
-if "UserData" in CWD.split(os.path.sep):
-    idx = int(CWD.split(os.path.sep).index("UserData"))
-    APP_DIR = os.path.sep.join(CWD.split(os.path.sep)[:idx])
-elif "UserData" in FILE_PATH.split(os.path.sep):
-    idx = int(FILE_PATH.split(os.path.sep).index("UserData"))
-    APP_DIR = os.path.sep.join(FILE_PATH.split(os.path.sep)[:idx])
+
+launcher_dir = None
+path = CURRENT_WORKING_DIR
+if SCOOP_FLOW_LAUNCHER_DIR_NAME.lower() in str(path).lower():
+    launcher_name = SCOOP_FLOW_LAUNCHER_DIR_NAME
+    API = FLOW_API
+elif FLOW_LAUNCHER_DIR_NAME.lower() in str(path).lower():
+    launcher_name = FLOW_LAUNCHER_DIR_NAME
+    API = FLOW_API
+elif WOX_DIR_NAME.lower() in str(path).lower():
+    launcher_name = WOX_DIR_NAME
+    API = WOX_API
 else:
-    _appdirs = os.listdir(os.path.join(LOCALAPPDATA, "FlowLauncher"))
-    _versions = []
-    for dir in _appdirs:
-        if "app-" in dir:
-            _version = dir.split("app-")[1]
-            _version = tuple(map(int, (_version.split("."))))
-            _versions.append(_version)
-    _version = ".".join(map(str, max(_versions)))
-    _dir = f"app-{_version}"
-    APP_DIR = os.path.join(LOCALAPPDATA, "FlowLauncher", _dir )
-    
+    raise FileNotFoundError(LAUNCHER_NOT_FOUND_MSG)
 
-APP_ICONS = os.path.join(APP_DIR, "Images")
-ICON_APP = os.path.join(APP_ICONS, 'app.png')
-ICON_APP_ERROR = os.path.join(APP_ICONS, 'app_error.png')
-ICON_BROWSER = os.path.join(APP_ICONS, 'browser.png')
-ICON_CALCULATOR = os.path.join(APP_ICONS, 'calculator.png')
-ICON_CANCEL = os.path.join(APP_ICONS, 'cancel.png')
-ICON_CLOSE = os.path.join(APP_ICONS, 'close.png')
-ICON_CMD = os.path.join(APP_ICONS, 'cmd.png')
-ICON_COLOR = os.path.join(APP_ICONS, 'color.png')
-ICON_CONTROL_PANEL = os.path.join(APP_ICONS, 'ControlPanel.png')
-ICON_COPY = os.path.join(APP_ICONS, 'copy.png')
-ICON_DELETE_FILE_FOLDER = os.path.join(APP_ICONS, 'deletefilefolder.png')
-ICON_DISABLE = os.path.join(APP_ICONS, 'disable.png')
-ICON_DOWN = os.path.join(APP_ICONS, 'down.png')
-ICON_EXE = os.path.join(APP_ICONS, 'exe.png')
-ICON_FILE = os.path.join(APP_ICONS, 'file.png')
-ICON_FIND = os.path.join(APP_ICONS, 'find.png')
-ICON_FOLDER = os.path.join(APP_ICONS, 'folder.png')
-ICON_HISTORY = os.path.join(APP_ICONS, 'history.png')
-ICON_IMAGE = os.path.join(APP_ICONS, 'image.png')
-ICON_LOCK = os.path.join(APP_ICONS, 'lock.png')
-ICON_LOGOFF = os.path.join(APP_ICONS, 'logoff.png')
-ICON_OK = os.path.join(APP_ICONS, 'ok.png')
-ICON_OPEN = os.path.join(APP_ICONS, 'open.png')
-ICON_PICTURES = os.path.join(APP_ICONS, 'pictures.png')
-ICON_PLUGIN = os.path.join(APP_ICONS, 'plugin.png')
-ICON_PROGRAM = os.path.join(APP_ICONS, 'program.png')
-ICON_RECYCLEBIN = os.path.join(APP_ICONS, 'recyclebin.png')
-ICON_RESTART = os.path.join(APP_ICONS, 'restart.png')
-ICON_SEARCH = os.path.join(APP_ICONS, 'search.png')
-ICON_SETTINGS = os.path.join(APP_ICONS, 'settings.png')
-ICON_SHELL = os.path.join(APP_ICONS, 'shell.png')
-ICON_SHUTDOWN = os.path.join(APP_ICONS, 'shutdown.png')
-ICON_SLEEP = os.path.join(APP_ICONS, 'sleep.png')
-ICON_UP = os.path.join(APP_ICONS, 'up.png')
-ICON_UPDATE = os.path.join(APP_ICONS, 'update.png')
-ICON_URL = os.path.join(APP_ICONS, 'url.png')
-ICON_USER = os.path.join(APP_ICONS, 'user.png')
-ICON_WARNING = os.path.join(APP_ICONS, 'warning.png')
-ICON_WEB_SEARCH = os.path.join(APP_ICONS, 'web_search.png')
-ICON_WORK = os.path.join(APP_ICONS, 'work.png')
+while True:
+    if len(path.parts) == 1:
+        raise FileNotFoundError(LAUNCHER_NOT_FOUND_MSG)
+    if path.joinpath('Settings').exists():
+        USER_DIR = path
+        if USER_DIR.name == 'UserData':
+            APP_DIR = USER_DIR.parent
+        elif str(CURRENT_WORKING_DIR).startswith(str(APPDATA)):
+            APP_DIR = LOCALAPPDATA.joinpath(launcher_name)
+        else:
+            raise FileNotFoundError(LAUNCHER_NOT_FOUND_MSG)
+        break
+
+    path = path.parent
+
+APP_ICONS = APP_DIR.joinpath("Images")
+ICON_APP = APP_DIR.joinpath('app.png')
+ICON_APP_ERROR = APP_DIR.joinpath(APP_ICONS, 'app_error.png')
+ICON_BROWSER = APP_DIR.joinpath(APP_ICONS, 'browser.png')
+ICON_CALCULATOR = APP_DIR.joinpath(APP_ICONS, 'calculator.png')
+ICON_CANCEL = APP_DIR.joinpath(APP_ICONS, 'cancel.png')
+ICON_CLOSE = APP_DIR.joinpath(APP_ICONS, 'close.png')
+ICON_CMD = APP_DIR.joinpath(APP_ICONS, 'cmd.png')
+ICON_COLOR = APP_DIR.joinpath('color.png')
+ICON_CONTROL_PANEL = APP_DIR.joinpath('ControlPanel.png')
+ICON_COPY = APP_DIR.joinpath('copy.png')
+ICON_DELETE_FILE_FOLDER = APP_DIR.joinpath('deletefilefolder.png')
+ICON_DISABLE = APP_DIR.joinpath('disable.png')
+ICON_DOWN = APP_DIR.joinpath('down.png')
+ICON_EXE = APP_DIR.joinpath('exe.png')
+ICON_FILE = APP_DIR.joinpath('file.png')
+ICON_FIND = APP_DIR.joinpath('find.png')
+ICON_FOLDER = APP_DIR.joinpath('folder.png')
+ICON_HISTORY = APP_DIR.joinpath('history.png')
+ICON_IMAGE = APP_DIR.joinpath('image.png')
+ICON_LOCK = APP_DIR.joinpath('lock.png')
+ICON_LOGOFF = APP_DIR.joinpath('logoff.png')
+ICON_OK = APP_DIR.joinpath('ok.png')
+ICON_OPEN = APP_DIR.joinpath('open.png')
+ICON_PICTURES = APP_DIR.joinpath('pictures.png')
+ICON_PLUGIN = APP_DIR.joinpath('plugin.png')
+ICON_PROGRAM = APP_DIR.joinpath('program.png')
+ICON_RECYCLEBIN = APP_DIR.joinpath('recyclebin.png')
+ICON_RESTART = APP_DIR.joinpath('restart.png')
+ICON_SEARCH = APP_DIR.joinpath('search.png')
+ICON_SETTINGS = APP_DIR.joinpath('settings.png')
+ICON_SHELL = APP_DIR.joinpath('shell.png')
+ICON_SHUTDOWN = APP_DIR.joinpath('shutdown.png')
+ICON_SLEEP = APP_DIR.joinpath('sleep.png')
+ICON_UP = APP_DIR.joinpath('up.png')
+ICON_UPDATE = APP_DIR.joinpath('update.png')
+ICON_URL = APP_DIR.joinpath('url.png')
+ICON_USER = APP_DIR.joinpath('user.png')
+ICON_WARNING = APP_DIR.joinpath('warning.png')
+ICON_WEB_SEARCH = APP_DIR.joinpath('web_search.png')
+ICON_WORK = APP_DIR.joinpath('work.png')
 
 
 class Flox(Launcher):
 
-    def __call__(self):
-        return super().__call__()
-
-    def call(self):
-        self.__call__()
-
-    def __init_subclass__(cls):
+    def __init_subclass__(cls, api=API, app_dir=APP_DIR, user_dir=USER_DIR):
         cls._debug = False
         cls.appdir = APP_DIR
+        cls.user_dir = USER_DIR
+        cls.api = api
         cls._start = time.time()
         cls._results = []
         cls._settings = None
@@ -130,7 +144,7 @@ class Flox(Launcher):
         )
 
     def issue_item(self, e):
-        trace = ''.join(traceback.format_exception(etype=type(e), value=e, tb=e.__traceback__)).replace('\n', '%0A')
+        trace = ''.join(traceback.format_exception(type(e), value=e, tb=e.__traceback__)).replace('\n', '%0A')
         self.add_item(
             title=self.issue_item_title,
             subtitle=self.issue_item_subtitle,
@@ -196,7 +210,7 @@ class Flox(Launcher):
 
     @cached_property
     def manifest(self):
-        with open(os.path.join(self.plugindir, PLUGIN_MANIFEST), 'r') as f:
+        with open(os.path.join(self.plugindir, PLUGIN_MANIFEST), 'r', encoding='utf-8') as f:
             return json.load(f)
 
     @cached_property
@@ -222,8 +236,12 @@ class Flox(Launcher):
 
     @property
     def app_settings(self):
-        with open(os.path.join(self.appdata, 'Settings', 'Settings.json'), 'r') as f:
+        with open(os.path.join(self.appdata, 'Settings', 'Settings.json'), 'r', encoding='utf-8') as f:
             return json.load(f)
+
+    @property
+    def query_search_precision(self):
+        return self.app_settings.get('QuerySearchPrecision', 'Regular')
 
     @cached_property
     def user_keywords(self):
@@ -315,53 +333,5 @@ class Flox(Launcher):
     def python_dir(self):
         return self.app_settings["PluginSettings"]["PythonDirectory"]
 
-class Settings(dict):
-
-    def __init__(self, filepath):
-        super(Settings, self).__init__()
-        self._filepath = filepath
-        self._save = True
-        if os.path.exists(self._filepath):
-            self._load()
-        else:
-            data = {}
-            self.update(data)
-            self.save()
-
-        
-    def _load(self):
-        data = {}
-        with open(self._filepath, 'r') as f:
-            try:
-                data.update(json.load(f))
-            except json.decoder.JSONDecodeError:
-                pass
-
-        self._save = False
-        self.update(data)
-        self._save = True
-
-    def save(self):
-        if self._save:
-            data = {}
-            data.update(self)
-            with open(self._filepath, 'w') as f:
-                json.dump(data, f, sort_keys=True, indent=4)
-        return
-    
-    def __setitem__(self, key, value):
-        super(Settings, self).__setitem__(key, value)
-        self.save()
-
-    def __delitem__(self, key):
-        super(Settings, self).__delitem__(key)
-        self.save()
-
-    def update(self, *args, **kwargs):
-        super(Settings, self).update(*args, **kwargs)
-        self.save()
-
-    def setdefault(self, key, value=None):
-        ret = super(Settings, self).setdefault(key, value)
-        self.save()
-        return ret
+    def log(self):
+        return self.logger

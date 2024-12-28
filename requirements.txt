@@ -1,2 +1,3 @@
 flowlauncher
 pyperclip
+flox-lib==0.19.6

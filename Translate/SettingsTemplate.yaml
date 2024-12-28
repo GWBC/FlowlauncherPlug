@@ -1,0 +1,17 @@
+body:
+  - type: textBlock
+    attributes:
+      name: description
+      description: 安装离线翻译：docker run -d
+        --restart unless-stopped
+        --name libretranslate
+        -p 35000:5000
+        libretranslate/libretranslate
+        --threads 12
+        --load-only en,zh
+  - type: input
+    attributes:
+      name: url
+      label: 地址
+      description: libretranslate服务地址
+      defaultValue: "http://127.0.0.1:35000"

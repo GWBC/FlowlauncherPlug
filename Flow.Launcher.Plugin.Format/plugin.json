@@ -6,7 +6,7 @@
     "Author": "gwbc",
     "Version": "1.0.0",
     "Language": "python",
-    "Website": "https://github.com/Flow-Launcher/",
+    "Website": "https://github.com/GWBC/FlowlauncherPlug",
     "IcoPath": "Images/icon.png",
     "ExecuteFileName": "main.py"
 }

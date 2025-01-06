@@ -16,7 +16,7 @@ from flox import Flox
 class DataFormat(Flox):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.logger_level("debug")
+        self.logger_level("info")
         self.icon = "Images/icon.png"
 
     def __err(self):

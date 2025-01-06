@@ -13,7 +13,7 @@ from libretranslatepy import LibreTranslateAPI
 class Translate(Flox):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.logger_level("debug")
+        self.logger_level("info")
         self.url = self.settings.get("url")
         self.lt = LibreTranslateAPI(self.url)
 

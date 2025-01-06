@@ -1,0 +1,12 @@
+{
+    "ID": "2f4e384e-76ce-45c3-aea2-b16f3e5c528a",
+    "ActionKeyword": "fmt",
+    "Name": "数据格式化",
+    "Description": "美化数据",
+    "Author": "gwbc",
+    "Version": "1.0.0",
+    "Language": "python",
+    "Website": "https://github.com/Flow-Launcher/",
+    "IcoPath": "Images/icon.png",
+    "ExecuteFileName": "main.py"
+}

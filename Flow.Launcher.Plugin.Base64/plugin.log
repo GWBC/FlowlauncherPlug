@@ -1,0 +1,143 @@
+11:50:42 DEBUG (launcher.py): Loaded settings from RPC request
+11:50:42 DEBUG (launcher.py): Request:
+{
+    "method": "query",
+    "parameters": [
+        ""
+    ],
+    "settings": {},
+    "id": 0,
+    "error": null
+}
+11:50:42 DEBUG (launcher.py): Params: ['']
+11:50:42 DEBUG (launcher.py): ########## Total time: 2ms ##########
+11:51:34 DEBUG (launcher.py): Loaded settings from RPC request
+11:51:34 DEBUG (launcher.py): Request:
+{
+    "method": "query",
+    "parameters": [
+        ""
+    ],
+    "settings": {},
+    "id": 1,
+    "error": null
+}
+11:51:34 DEBUG (launcher.py): Params: ['']
+11:51:34 DEBUG (launcher.py): ########## Total time: 2ms ##########
+18:30:28 DEBUG (launcher.py): Loaded settings from RPC request
+18:30:28 DEBUG (launcher.py): Request:
+{
+    "method": "query",
+    "parameters": [
+        ""
+    ],
+    "settings": {},
+    "id": 0,
+    "error": null
+}
+18:30:28 DEBUG (launcher.py): Params: ['']
+18:30:28 DEBUG (launcher.py): ########## Total time: 3ms ##########
+18:30:33 DEBUG (launcher.py): Loaded settings from RPC request
+18:30:33 DEBUG (launcher.py): Request:
+{
+    "method": "query",
+    "parameters": [
+        "asdfsd"
+    ],
+    "settings": {},
+    "id": 7,
+    "error": null
+}
+18:30:33 DEBUG (launcher.py): Params: ['asdfsd']
+18:30:33 DEBUG (launcher.py): ########## Total time: 1ms ##########
+18:30:35 DEBUG (launcher.py): Loaded settings from RPC request
+18:30:35 DEBUG (launcher.py): Request:
+{
+    "method": "query",
+    "parameters": [
+        "as"
+    ],
+    "settings": {},
+    "id": 11,
+    "error": null
+}
+18:30:35 DEBUG (launcher.py): Params: ['as']
+18:30:35 DEBUG (launcher.py): ########## Total time: 1ms ##########
+18:30:36 DEBUG (launcher.py): Loaded settings from RPC request
+18:30:36 DEBUG (launcher.py): Request:
+{
+    "method": "query",
+    "parameters": [
+        "a"
+    ],
+    "settings": {},
+    "id": 12,
+    "error": null
+}
+18:30:36 DEBUG (launcher.py): Params: ['a']
+18:30:36 DEBUG (launcher.py): ########## Total time: 2ms ##########
+18:30:37 DEBUG (launcher.py): Loaded settings from RPC request
+18:30:37 DEBUG (launcher.py): Request:
+{
+    "method": "query",
+    "parameters": [
+        ""
+    ],
+    "settings": {},
+    "id": 13,
+    "error": null
+}
+18:30:37 DEBUG (launcher.py): Params: ['']
+18:30:37 DEBUG (launcher.py): ########## Total time: 3ms ##########
+18:30:37 DEBUG (launcher.py): Loaded settings from RPC request
+18:30:37 DEBUG (launcher.py): Request:
+{
+    "method": "query",
+    "parameters": [
+        "en"
+    ],
+    "settings": {},
+    "id": 15,
+    "error": null
+}
+18:30:37 DEBUG (launcher.py): Params: ['en']
+18:30:37 DEBUG (launcher.py): ########## Total time: 2ms ##########
+18:30:38 DEBUG (launcher.py): Loaded settings from RPC request
+18:30:38 DEBUG (launcher.py): Request:
+{
+    "method": "query",
+    "parameters": [
+        "en:"
+    ],
+    "settings": {},
+    "id": 16,
+    "error": null
+}
+18:30:38 DEBUG (launcher.py): Params: ['en:']
+18:30:38 DEBUG (launcher.py): ########## Total time: 1ms ##########
+18:30:39 DEBUG (launcher.py): Loaded settings from RPC request
+18:30:39 DEBUG (launcher.py): Request:
+{
+    "method": "query",
+    "parameters": [
+        "en:asdfsd"
+    ],
+    "settings": {},
+    "id": 22,
+    "error": null
+}
+18:30:39 DEBUG (launcher.py): Params: ['en:asdfsd']
+18:30:39 DEBUG (launcher.py): ########## Total time: 1ms ##########
+18:30:41 DEBUG (launcher.py): Loaded settings from RPC request
+18:30:41 DEBUG (launcher.py): Request:
+{
+    "method": "copy2clipboard",
+    "parameters": [
+        "YXNkZnNk"
+    ],
+    "settings": null,
+    "id": 0,
+    "error": null
+}
+18:30:41 DEBUG (launcher.py): Params: ['YXNkZnNk']
+18:30:41 DEBUG (launcher.py): ########## Total time: 106ms ##########

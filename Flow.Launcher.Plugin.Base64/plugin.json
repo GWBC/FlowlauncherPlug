@@ -1,0 +1,12 @@
+{
+    "ID": "2f4e384a-76cg-45c3-aea2-b16f5e5c328a",
+    "ActionKeyword": "bs",
+    "Name": "base64",
+    "Description": "bae64编解码",
+    "Author": "gwbc",
+    "Version": "1.0.0",
+    "Language": "python",
+    "Website": "https://github.com/Flow-Launcher/",
+    "IcoPath": "Images/icon.png",
+    "ExecuteFileName": "main.py"
+}

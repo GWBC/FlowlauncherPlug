@@ -1,0 +1,12 @@
+{
+    "ID": "10ab92c9-c6dd-4645-992e-27b7b54bcbe3",
+    "ActionKeyword": "tr",
+    "Name": "翻译",
+    "Description": "中英文翻译",
+    "Author": "gwbc",
+    "Version": "1.0.0",
+    "Language": "python",
+    "Website": "https://github.com/GWBC/FlowlauncherPlug",
+    "IcoPath": "Images/icon.png",
+    "ExecuteFileName": "main.py"
+}

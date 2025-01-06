@@ -66,6 +66,10 @@ def build():
     plugConfigs = procPlugins(plugs)
     print(json.dumps(plugConfigs))
 
+    for root, dirs, files in os.walk(zipOutput):
+        for file in files:
+            print("输出插件：{}".format(str(Path(root).joinpath(file))))
+
 
 if __name__ == "__main__":
     build()

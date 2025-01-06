@@ -1,5 +1,5 @@
 import os, json
-import shutil
+import shutil, sys
 from pathlib import Path
 from datetime import datetime
 
@@ -27,6 +27,10 @@ def getPlugins(dirs: list[str]) -> list[str]:
 
 
 def procPlug(cfgPath: str) -> dict:
+    appveyorVersion = ""
+    if len(sys.argv) >= 2:
+        appveyorVersion = sys.argv[1]
+
     parent = Path(cfgPath).parent
     output = zipOutput.joinpath(parent.name)
 
@@ -43,7 +47,11 @@ def procPlug(cfgPath: str) -> dict:
             )
         )
         dataObj["UrlSourceCode"] = dataObj["Website"]
-        dataObj["UrlDownload"] = ""
+        dataObj["UrlDownload"] = (
+            "https://github.com/GWBC/FlowlauncherPlug/releases/download/{}/{}.zip".format(
+                appveyorVersion, parent.name
+            )
+        )
         dataObj["Tested"] = True
         dataObj["DateAdded"] = datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
         dataObj["LatestReleaseDate"] = datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")

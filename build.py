@@ -1,8 +1,11 @@
 import os, json
+import shutil
 from pathlib import Path
 from datetime import datetime
 
 curPath = Path(__file__).parent
+zipOutput = curPath.joinpath("output")
+os.makedirs(zipOutput, exist_ok=True)
 
 
 def getDirs() -> list[str]:
@@ -25,6 +28,9 @@ def getPlugins(dirs: list[str]) -> list[str]:
 
 def procPlug(cfgPath: str) -> dict:
     parent = Path(cfgPath).parent
+    output = zipOutput.joinpath(parent.name)
+
+    shutil.make_archive(output, "zip", parent)
 
     with open(cfgPath, "r", encoding="utf8") as f:
         data = f.read()

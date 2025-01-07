@@ -1,11 +1,14 @@
 import os, json
 import shutil, sys
 from pathlib import Path
-from datetime import datetime
+from datetime import datetime, timezone
 
 curPath = Path(__file__).parent
 zipOutput = curPath.joinpath("output")
 os.makedirs(zipOutput, exist_ok=True)
+
+buildVersion = os.getenv("APPVEYOR_BUILD_VERSION")
+print("构建版本：{}".format(buildVersion))
 
 
 def getDirs() -> list[str]:
@@ -27,14 +30,13 @@ def getPlugins(dirs: list[str]) -> list[str]:
 
 
 def procPlug(cfgPath: str) -> dict:
-    appveyorVersion = ""
-    if len(sys.argv) >= 2:
-        appveyorVersion = sys.argv[1]
-
     parent = Path(cfgPath).parent
     output = zipOutput.joinpath(parent.name)
 
     shutil.make_archive(output, "zip", parent)
+
+    mtime = os.path.getmtime(cfgPath)
+    ctime = os.stat(cfgPath).st_birthtime
 
     with open(cfgPath, "r", encoding="utf8") as f:
         data = f.read()
@@ -49,12 +51,16 @@ def procPlug(cfgPath: str) -> dict:
         dataObj["UrlSourceCode"] = dataObj["Website"]
         dataObj["UrlDownload"] = (
             "https://github.com/GWBC/FlowlauncherPlug/releases/download/{}/{}.zip".format(
-                appveyorVersion, parent.name
+                buildVersion, parent.name
             )
         )
         dataObj["Tested"] = True
-        dataObj["DateAdded"] = datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
-        dataObj["LatestReleaseDate"] = datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
+        dataObj["DateAdded"] = datetime.fromtimestamp(ctime).strftime(
+            "%Y-%m-%dT%H:%M:%SZ"
+        )
+        dataObj["LatestReleaseDate"] = datetime.fromtimestamp(mtime).strftime(
+            "%Y-%m-%dT%H:%M:%SZ"
+        )
         return dataObj
 
 

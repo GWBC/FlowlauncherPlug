@@ -51,7 +51,7 @@ def procPlug(cfgPath: str) -> dict:
         )
         dataObj["UrlSourceCode"] = dataObj["Website"]
         dataObj["UrlDownload"] = (
-            "https://github.com/GWBC/FlowlauncherPlug/releases/download/{}/{}.zip".format(
+            "https://github.com/GWBC/FlowlauncherPlug/releases/download/v{}/{}.zip".format(
                 buildVersion, parent.name
             )
         )

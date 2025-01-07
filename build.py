@@ -36,7 +36,8 @@ def procPlug(cfgPath: str) -> dict:
     shutil.make_archive(output, "zip", parent)
 
     mtime = os.path.getmtime(cfgPath)
-    ctime = os.stat(cfgPath).st_birthtime
+    # ctime = os.stat(cfgPath).st_birthtime
+    ctime = os.stat(cfgPath).st_ctime
 
     with open(cfgPath, "r", encoding="utf8") as f:
         data = f.read()

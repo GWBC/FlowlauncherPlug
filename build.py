@@ -1,5 +1,6 @@
 import os, json
 import shutil, sys
+import subprocess
 from pathlib import Path
 from datetime import datetime, timezone
 
@@ -35,9 +36,14 @@ def procPlug(cfgPath: str) -> dict:
 
     shutil.make_archive(output, "zip", parent)
 
-    mtime = os.path.getmtime(cfgPath)
-    # ctime = os.stat(cfgPath).st_birthtime
-    ctime = os.stat(cfgPath).st_ctime
+    # git clone后文件时间戳变化了
+    # mtime = os.path.getmtime(cfgPath)
+    # ctime = os.stat(cfgPath).st_birthtime #新版本
+    # ctime = os.stat(cfgPath).st_ctime
+
+    gitCommand = ["git", "log", "-1", f"--format=%at", "--", cfgPath]
+    mtime = subprocess.run(gitCommand, capture_output=True, text=True)
+    mtime = int(mtime.stdout)
 
     with open(cfgPath, "r", encoding="utf8") as f:
         data = f.read()
@@ -56,7 +62,7 @@ def procPlug(cfgPath: str) -> dict:
             )
         )
         dataObj["Tested"] = True
-        dataObj["DateAdded"] = datetime.fromtimestamp(ctime).strftime(
+        dataObj["DateAdded"] = datetime.fromtimestamp(mtime).strftime(
             "%Y-%m-%dT%H:%M:%SZ"
         )
         dataObj["LatestReleaseDate"] = datetime.fromtimestamp(mtime).strftime(

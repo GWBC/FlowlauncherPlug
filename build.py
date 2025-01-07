@@ -85,11 +85,12 @@ def build():
         print("获取插件：{}".format(ps))
 
     plugConfigs = procPlugins(plugs)
-    print(json.dumps(plugConfigs))
 
     for root, dirs, files in os.walk(zipOutput):
         for file in files:
             print("输出插件：{}".format(str(Path(root).joinpath(file))))
+
+    print("\n{}\n".format(json.dumps(plugConfigs)))
 
 
 if __name__ == "__main__":

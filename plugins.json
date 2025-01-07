@@ -1,0 +1,62 @@
+[
+    {
+        "ID": "2f4e384e-76ce-45c3-aea2-b16f5e5c328a",
+        "Name": "\u65f6\u95f4\u6233",
+        "Description": "\u65e5\u671f\uff0c\u65f6\u95f4\u8f6c\u6362",
+        "Author": "gwbc",
+        "Version": "1.0.0",
+        "Language": "python",
+        "Website": "https://github.com/GWBC/FlowlauncherPlug",
+        "IcoPath": "https://cdn.jsdelivr.net/gh/GWBC/FlowlauncherPlug@main/Flow.Launcher.Plugin.DateTime/Images/icon.png",
+        "UrlSourceCode": "https://github.com/GWBC/FlowlauncherPlug",
+        "UrlDownload": "",
+        "Tested": true,
+        "DateAdded": "2025-01-06T10:11:14Z",
+        "LatestReleaseDate": "2025-01-06T10:11:14Z"
+    },
+    {
+        "ID": "10ab92c9-c6dd-4645-992e-27b7b54bcbe3",
+        "Name": "\u7ffb\u8bd1",
+        "Description": "\u4e2d\u82f1\u6587\u7ffb\u8bd1",
+        "Author": "gwbc",
+        "Version": "1.0.0",
+        "Language": "python",
+        "Website": "https://github.com/GWBC/FlowlauncherPlug",
+        "IcoPath": "https://cdn.jsdelivr.net/gh/GWBC/FlowlauncherPlug@main/Flow.Launcher.Plugin.Translate/Images/icon.png",
+        "UrlSourceCode": "https://github.com/GWBC/FlowlauncherPlug",
+        "UrlDownload": "",
+        "Tested": true,
+        "DateAdded": "2025-01-06T10:11:14Z",
+        "LatestReleaseDate": "2025-01-06T10:11:14Z"
+    },
+    {
+        "ID": "2f4e384a-76cg-45c3-aea2-b16f5e5c328a",
+        "Name": "base64",
+        "Description": "bae64\u7f16\u89e3\u7801",
+        "Author": "gwbc",
+        "Version": "1.0.0",
+        "Language": "python",
+        "Website": "https://github.com/GWBC/FlowlauncherPlug",
+        "IcoPath": "https://cdn.jsdelivr.net/gh/GWBC/FlowlauncherPlug@main/Flow.Launcher.Plugin.Base64/Images/icon.png",
+        "UrlSourceCode": "https://github.com/GWBC/FlowlauncherPlug",
+        "UrlDownload": "",
+        "Tested": true,
+        "DateAdded": "2025-01-06T10:11:15Z",
+        "LatestReleaseDate": "2025-01-06T10:11:15Z"
+    },
+    {
+        "ID": "2f4e384e-76ce-45c3-aea2-b16f3e5c528a",
+        "Name": "\u6570\u636e\u683c\u5f0f\u5316",
+        "Description": "\u7f8e\u5316\u6570\u636e",
+        "Author": "gwbc",
+        "Version": "1.0.0",
+        "Language": "python",
+        "Website": "https://github.com/GWBC/FlowlauncherPlug",
+        "IcoPath": "https://cdn.jsdelivr.net/gh/GWBC/FlowlauncherPlug@main/Flow.Launcher.Plugin.Format/Images/icon.png",
+        "UrlSourceCode": "https://github.com/GWBC/FlowlauncherPlug",
+        "UrlDownload": "",
+        "Tested": true,
+        "DateAdded": "2025-01-06T10:11:15Z",
+        "LatestReleaseDate": "2025-01-06T10:11:15Z"
+    }
+]
